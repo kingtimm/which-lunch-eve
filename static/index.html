@@ -11,9 +11,8 @@
     <script src="static/services.js"></script>
 </head>
 <body ng-controller="LunchCtrl">
-    <h3>Random Place</h3>
-    <p>{{randomPlace.name}}</p>
-    <button ng-click="tryAgain()">Try Again</button>
+    <h3>Random Place: {{randomPlace.name}}!</h3>
+    <button ng-click="tryAgain()" class="btn-primary">Try Again</button>
     <h3>Lunch Places</h3>
     <table class="table table-striped">
       <tr>
