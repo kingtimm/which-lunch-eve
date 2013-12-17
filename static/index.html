@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="whichLunchApp">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script src="static/lib/angular.js"></script>
+    <script src="static/lib/angular-resource.js"></script>
+    <script src="static/app.js"></script>
+    <script src="static/controllers.js"></script>
+    <script src="static/services.js"></script>
+</head>
+<body ng-controller="LunchCtrl">
+    <h3>Random Place</h3>
+    <p>{{randomPlace.name}}</p>
+    <button ng-click="tryAgain()">Try Again</button>
+    <h3>Lunch Places</h3>
+    <table class="table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Controls</th>
+      </tr>
+      <tr ng-repeat="place in data.places">
+        <td>{{place.name}}</td>
+        <td><button ng-click="removePlace(place)">Remove</button></td>
+      </tr>
+    </table>
+
+    <h3>Add New</h3>
+    <form ng-submit="addPlace()">
+        <input type="text" ng-model="newPlaceText"  size="30"
+               placeholder="add new place here">
+        <input class="btn-primary" type="submit" value="add">
+    </form>
+</body>
+</html>
