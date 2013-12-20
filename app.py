@@ -1,12 +1,12 @@
 from eve import Eve
 from flask import send_file
 
-app = Eve(__name__)
+app = Eve(__name__, static_url_path='')
 app.debug = True
 
 @app.route('/')
 def home_page():
-    return send_file('static/index.html')
+    return app.send_static_file('index.html')
 
 # def print_documents(resource, documents):
 #     for document in documents:

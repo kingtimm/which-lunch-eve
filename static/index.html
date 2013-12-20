@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html ng-app="whichLunchApp">
+<html>
 <head>
     <title></title>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-    <script src="static/lib/angular.js"></script>
-    <script src="static/lib/angular-resource.js"></script>
-    <script src="static/app.js"></script>
-    <script src="static/controllers.js"></script>
-    <script src="static/services.js"></script>
+    <script src="lib/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers.js"></script>
+    <script src="services.js"></script>
 </head>
-<body ng-controller="LunchCtrl">
-    <h3>Random Place: {{randomPlace.name}}!</h3>
-    <button ng-click="tryAgain()" class="btn-primary">Try Again</button>
+<body ng-app="whichLunchApp" ng-controller="LunchCtrl as app">
+    <h3>Random Place: {{app.randomPlace.name}}!</h3>
+    <button ng-click="app.tryAgain()" class="btn-primary">Try Again</button>
     <h3>Lunch Places</h3>
     <table class="table table-striped">
       <tr>
         <th>Name</th>
         <th>Controls</th>
       </tr>
-      <tr ng-repeat="place in data.places">
+      <tr ng-repeat="place in app.items">
         <td>{{place.name}}</td>
-        <td><button ng-click="removePlace(place)">Remove</button></td>
+        <td><button ng-click="app.removePlace(place)">Remove</button></td>
       </tr>
     </table>
 
     <h3>Add New</h3>
-    <form ng-submit="addPlace()">
-        <input type="text" ng-model="newPlaceText"  size="30"
+    <form ng-submit="app.addPlace(app.newPlaceText)">
+        <input type="text" ng-model="app.newPlaceText"  size="30"
                placeholder="add new place here">
         <input class="btn-primary" type="submit" value="add">
     </form>

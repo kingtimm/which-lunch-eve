@@ -3,7 +3,7 @@ MONGO_PORT = 27017
 MONGO_DBNAME = 'whichlunch'
 SERVER_NAME = '127.0.0.1:5000'
 URL_PREFIX = 'api'
-DEBUG=True
+DEBUG = True
 
 DOMAIN = {
     'places': {
