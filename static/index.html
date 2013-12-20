@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-    <script src="lib/angular.js"></script>
-    <script src="app.js"></script>
-    <script src="controllers.js"></script>
-    <script src="services.js"></script>
-</head>
-<body ng-app="whichLunchApp" ng-controller="LunchCtrl as app">
-    <h3>Random Place: {{app.randomPlace.name}}!</h3>
-    <button ng-click="app.tryAgain()" class="btn-primary">Try Again</button>
-    <h3>Lunch Places</h3>
-    <table class="table table-striped">
-      <tr>
-        <th>Name</th>
-        <th>Controls</th>
-      </tr>
-      <tr ng-repeat="place in app.items">
-        <td>{{place.name}}</td>
-        <td><button ng-click="app.removePlace(place)">Remove</button></td>
-      </tr>
-    </table>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="style.css"/>
+        <script src="lib/angular.js"></script>
+        <script src="app.js"></script>
+        <script src="controllers.js"></script>
+        <script src="services.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    </head>
+    <body ng-app="whichLunchApp" ng-controller="LunchCtrl as app">
+        <div>
+            <h1>{{app.randomPlace.name}}!</h1>
+            <button ng-click="app.tryAgain()" class="btn btn-primary">Try Again</button>
+        </div>
+        <h3>Lunch Options</h3>
+        <table class="table table-striped">
+            <tr ng-repeat="place in app.items">
+                <td>
+                    <form class='form-inline' role='form' ng-submit="app.updatePlace(place)">
 
-    <h3>Add New</h3>
-    <form ng-submit="app.addPlace(app.newPlaceText)">
-        <input type="text" ng-model="app.newPlaceText"  size="30"
-               placeholder="add new place here">
-        <input class="btn-primary" type="submit" value="add">
-    </form>
-</body>
+                        <div class="form-group col-sm-10">
+                            <input type="text" class="form-control" ng-model="place.name">
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <input class="btn btn-primary" type="submit" value="Update">
+                            <button class='btn btn-danger'
+                                    type="button"
+                                    ng-click="app.removePlace(place)">X</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <form class='form-inline' role="form" ng-submit="app.addPlace(app.newPlaceText)">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="app.newPlaceText"
+                       placeholder="add new place here">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Add">
+        </form>
+        <div class='alerts'>
+            <div ng-repeat="alert in alerts">
+                <div ng-class="alert.type">{{alert.msg}}</div>
+            </div>
+        </div>
+    </body>
 </html>

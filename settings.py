@@ -13,7 +13,7 @@ DOMAIN = {
             'name': {
                 'type': 'string',
                 'minlength': 1,
-                'maxlength': 20,
+                'maxlength': 30,
             }
         },
         'resource_methods': ['GET', 'POST'],

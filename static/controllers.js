@@ -1,6 +1,6 @@
 angular.module('whichLunchApp.controllers', []).
-    controller('LunchCtrl', ['LunchPlaces', '$http',
-        function(LunchPlaces) {
+    controller('LunchCtrl', ['LunchPlaces', '$rootScope', 'Alerts',
+        function(LunchPlaces, $rootScope, Alerts) {
             var app = this;
 
             app.data = {};
@@ -39,7 +39,12 @@ angular.module('whichLunchApp.controllers', []).
 
                             data.name = name;
                             app.items.push(data);
+                            Alerts.add('success', 'Successfully added '+name)
                         }
+                        else {
+                            Alerts.add('danger',data.issues[0]);
+                        }
+
                     });
                 app.newPlaceText = '';
             };
@@ -50,10 +55,30 @@ angular.module('whichLunchApp.controllers', []).
                     success(function(data, status, headers, config) {
                         // eve caches the list of items unless an
                         // "If-None-Match" header is passed w/ etag
-                        app.items.splice(app.items.indexOf(place), 1)
+                        app.items.splice(app.items.indexOf(place), 1);
+                        Alerts.add('success', 'Successfully deleted '+name)
                     });
                 app.newPlaceText = '';
 
+            };
+
+            app.updatePlace = function(place) {
+                LunchPlaces.update(place).
+                    success(function(data, status, headers, config) {
+                        // eve caches the list of items unless an
+                        // "If-None-Match" header is passed w/ etag
+                        place.etag = data.etag;
+                        Alerts.add('success', 'Successfully updated '+name)
+                    }).
+                    error(function(data, status, headers, config){
+                        if (status == 412){
+                            Alerts.add('danger', 'Someone else might have edited' +' ' + place.name + '. Please refresh page.')
+                        }
+                        else {
+                            Alerts.add('danger', 'Something bad happened, ' +
+                                'not sure what.')
+                        }
+                    });
             };
 
             app.tryAgain = function() {
