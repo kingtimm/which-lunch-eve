@@ -7,8 +7,6 @@ DEBUG = True
 
 DOMAIN = {
     'places': {
-        'cache_control': 'max-age=1,must-revalidate',
-        'cache_expires': 1,
         'schema' : {
             'name': {
                 'type': 'string',

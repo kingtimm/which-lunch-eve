@@ -19,18 +19,14 @@ angular.module('whichLunchApp.controllers', []).
                 }
              }
 
-            app.listPlaces = function(etag) {
-                LunchPlaces.list(etag).
-                    success(function(data, status, headers, config){
-                        app.items = angular.fromJson(data._items);
-                        console.log('Total Places: ' + app.items.length);
-                        randomizePlace();
-                    }).error(function(data, status, headers, config){
-                        console.log('Listing Response ' + status);
-                    })
-            };
-
-            app.listPlaces();
+            LunchPlaces.list('1234567890123456789012345678901234567890').
+                success(function(data, status, headers, config){
+                    app.items = angular.fromJson(data._items);
+                    console.log('Total Places: ' + app.items.length);
+                    randomizePlace();
+                }).error(function(data, status, headers, config){
+                    console.log('Listing Response ' + status);
+            });
 
             app.addPlace = function(name) {
                 LunchPlaces.add(name).

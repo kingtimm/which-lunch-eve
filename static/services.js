@@ -2,12 +2,10 @@ angular.module('whichLunchApp.services', [])
     .factory('LunchPlaces', function($http){
 
         var base_url = '/api/places/';
-        var storedEtag = '';
 
         return {
             destroy: function(id, etag) {
                 console.log('Deleting place: '+ id);
-                storedEtag = etag;
                 return $http.delete(base_url+id, {headers:{'If-Match': etag}});
             },
             add: function(name) {
@@ -16,15 +14,10 @@ angular.module('whichLunchApp.services', [])
             },
             list: function(etag) {
                 console.log('Listing all places');
-                if(etag) {
-                    return $http.get(base_url, {headers:{'If-None-Match': etag}})
-                } else {
-                    return $http.get(base_url, {headers:{'If-None-Match': storedEtag}})
-                }
+                return $http.get(base_url, {headers:{'If-None-Match': etag}})
             },
             update: function(place) {
                 console.log('Updating place: '+ place.name);
-                storedEtag = place.etag;
                 return $http.put(base_url+place._id, {name:place.name}, {headers:{'If-Match':place.etag}})
             }
         }
